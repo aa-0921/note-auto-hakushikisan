@@ -26,8 +26,16 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     const argv = process.argv.slice(2);
     const skipPublish = argv.includes('--skip-publish') || argv.includes('--no-publish');
     
+    // アフィリエイトリンクの表示ON/OFF（true: 表示, false: 非表示）
+    // const enableAffiliateLinks = true; // ここでtrue/falseを切り替え
+    const enableAffiliateLinks = false; // ここでtrue/falseを切り替え
+    
     if (skipPublish) {
       logger.info('⏭️  投稿をスキップします（--skip-publish オプション）');
+    }
+    
+    if (!enableAffiliateLinks) {
+      logger.info('⏭️  アフィリエイトリンクを無効化します');
     }
     
     const trendService = new GoogleTrendArticleService(config, logger);
@@ -50,11 +58,11 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
       const result = await trendService.generateAndPublishTrendArticle({
         keyword: null, // 常に自動取得
         skipPublish: skipPublish, // 投稿をスキップするかどうか
-        affiliateLinks: affiliateLinks, // アフィリエイトリンク
-        affiliateConfig: affiliateConfig, // アフィリエイト設定
-        amazonAssociateText: amazonAssociateText, // Amazonアソシエイト表記文
+        affiliateLinks: enableAffiliateLinks ? affiliateLinks : [], // アフィリエイトリンク（無効化時は空配列）
+        affiliateConfig: enableAffiliateLinks ? affiliateConfig : {}, // アフィリエイト設定（無効化時は空オブジェクト）
+        amazonAssociateText: enableAffiliateLinks ? amazonAssociateText : '', // Amazonアソシエイト表記文（無効化時は空文字列）
         recommendedArticlesTitle: recommendedArticlesTitle, // おすすめ記事セクションのタイトル
-        recommendedArticlesUrls: recommendedArticlesUrls, // おすすめ記事のURL配列
+        recommendedArticlesUrls: recommendedArticlesUrls, // おすすめ記事のURL配列（常に表示）
         aiOptions: {
           systemMessage: [
             'あなたはプロのコンテンツライターで、ベテランの編集者でもあります。',
