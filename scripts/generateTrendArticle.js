@@ -32,13 +32,29 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     
     const trendService = new GoogleTrendArticleService(config, logger);
     
+    // アソシエイト表記文
+    const amazonAssociateText =
+      'Amazon のアソシエイトとして、「何でも知ってる博識さん」は適格販売により収入を得ています。';
+
+    // おすすめ記事セクションの設定
+    const recommendedArticlesTitle = 'まだまだ為になる！🙇‍♂️他のおすすめ記事🙆‍♂️';
+    const recommendedArticlesUrls = [
+      'https://note.com/hakushiki_san/n/n507729ba2148',
+      'https://note.com/hakushiki_san/n/nc9099ebd3e76',
+      'https://note.com/hakushiki_san/n/n198c5b08783b',
+      'https://note.com/hakushiki_san/n/nd5c37bbc7e15',
+    ];
+    
     try {
       // Googleトレンド記事を生成・投稿
       const result = await trendService.generateAndPublishTrendArticle({
         keyword: null, // 常に自動取得
         skipPublish: skipPublish, // 投稿をスキップするかどうか
-        // affiliateLinks: affiliateLinks, // アフィリエイトリンク
-        // affiliateConfig: affiliateConfig, // アフィリエイト設定
+        affiliateLinks: affiliateLinks, // アフィリエイトリンク
+        affiliateConfig: affiliateConfig, // アフィリエイト設定
+        amazonAssociateText: amazonAssociateText, // Amazonアソシエイト表記文
+        recommendedArticlesTitle: recommendedArticlesTitle, // おすすめ記事セクションのタイトル
+        recommendedArticlesUrls: recommendedArticlesUrls, // おすすめ記事のURL配列
         aiOptions: {
           systemMessage: [
             'あなたはプロのコンテンツライターで、ベテランの編集者でもあります。',
