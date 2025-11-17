@@ -4,8 +4,8 @@
 // Audible・Kindleアフィリエイト設定
 // const affiliateTag = 'counselor888a-22';
 const affiliateTag = 'hakushiki-san-22';
-const audibleAffiliateEnabled = true;
-const kindleAffiliateEnabled = true;
+const audibleAffiliateEnabled = false;
+const kindleAffiliateEnabled = false;
 
 // アフィリエイト設定をエクスポート
 export const affiliateConfig = {

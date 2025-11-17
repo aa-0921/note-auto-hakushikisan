@@ -5,6 +5,9 @@
 
 import { runWithCore, GoogleTrendArticleService, Logger } from '@aa-0921/note-auto-core';
 
+// アフィリエイト設定とリンクを別ファイルから読み込み
+import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
+
 (async () => {
   await runWithCore(async ({ core, wantsBackground }) => {
     const logger = new Logger();
@@ -34,6 +37,8 @@ import { runWithCore, GoogleTrendArticleService, Logger } from '@aa-0921/note-au
       const result = await trendService.generateAndPublishTrendArticle({
         keyword: null, // 常に自動取得
         skipPublish: skipPublish, // 投稿をスキップするかどうか
+        // affiliateLinks: affiliateLinks, // アフィリエイトリンク
+        // affiliateConfig: affiliateConfig, // アフィリエイト設定
         aiOptions: {
           systemMessage: [
             'あなたはプロのコンテンツライターで、ベテランの編集者でもあります。',
