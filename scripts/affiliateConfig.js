@@ -2,7 +2,8 @@
 // アフィリエイト関連の設定とリンクをまとめた設定ファイル
 
 // Audible・Kindleアフィリエイト設定
-const affiliateTag = 'counselor888a-22';
+// const affiliateTag = 'counselor888a-22';
+const affiliateTag = 'hakushiki-san-22';
 const audibleAffiliateEnabled = true;
 const kindleAffiliateEnabled = true;
 

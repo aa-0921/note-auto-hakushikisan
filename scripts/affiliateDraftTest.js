@@ -19,7 +19,8 @@ async function main() {
   const configPath = getArgValue('--config') || 'config/account.yaml';
 
   // Audible・Kindleアフィリエイト設定（直接指定）
-  const affiliateTag = 'note-enginner-22';
+  // const affiliateTag = 'note-enginner-22';
+  const affiliateTag = 'hakushiki-san-22';
   const audibleAffiliateEnabled = true;
   const kindleAffiliateEnabled = true;
 
