@@ -26,6 +26,20 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     const argv = process.argv.slice(2);
     const skipPublish = argv.includes('--skip-publish') || argv.includes('--no-publish');
     
+    // 最初のターゲット行を指定するオプション（--row2, --row3, --row4, --row5）
+    // デフォルトは0（1行目）
+    let initialRowIndex = 0;
+    const rowArg = argv.find(arg => arg.startsWith('--row'));
+    if (rowArg) {
+      const rowNumber = parseInt(rowArg.replace('--row', ''));
+      if (!isNaN(rowNumber) && rowNumber >= 1) {
+        initialRowIndex = rowNumber - 1; // 1ベースから0ベースに変換（--row2 → インデックス1）
+        logger.info(`📌 最初のターゲット行: ${rowNumber}行目（インデックス: ${initialRowIndex}）`);
+      } else {
+        logger.warn(`⚠️ 無効な行番号: ${rowArg}。デフォルト（1行目）を使用します。`);
+      }
+    }
+    
     // アフィリエイトリンクの表示ON/OFF（true: 表示, false: 非表示）
     // const enableAffiliateLinks = true; // ここでtrue/falseを切り替え
     const enableAffiliateLinks = false; // ここでtrue/falseを切り替え
@@ -53,11 +67,19 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
       'https://note.com/hakushiki_san/n/nd5c37bbc7e15',
     ];
     
+    // デバッグログ: スクリプト側で定義されたrecommendedArticlesUrls
+    logger.info('=== [DEBUG] scripts/generateTrendArticle.js ===');
+    logger.info(`recommendedArticlesUrls.length: ${recommendedArticlesUrls.length}`);
+    recommendedArticlesUrls.forEach((url, index) => {
+      logger.info(`  [${index + 1}] ${url}`);
+    });
+    
     try {
       // Googleトレンド記事を生成・投稿
       const result = await trendService.generateAndPublishTrendArticle({
         keyword: null, // 常に自動取得
         skipPublish: skipPublish, // 投稿をスキップするかどうか
+        initialRowIndex: initialRowIndex, // 最初のターゲット行のインデックス（0ベース）
         affiliateLinks: enableAffiliateLinks ? affiliateLinks : [], // アフィリエイトリンク（無効化時は空配列）
         affiliateConfig: enableAffiliateLinks ? affiliateConfig : {}, // アフィリエイト設定（無効化時は空オブジェクト）
         amazonAssociateText: enableAffiliateLinks ? amazonAssociateText : '', // Amazonアソシエイト表記文（無効化時は空文字列）
@@ -79,7 +101,7 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
             '- 適切な箇所に絵文字（📝、💡、✨、🎯、📊、💬、🌟など）を入れて視覚的に読みやすくしてください',
             '- 絵文字を付ける場合は、その文の末尾に句読点（。、）をつけないでください（例：「注目が集まります💬」のように）',
             '- 専門用語や重要なキーワードが登場する際は、そのセクションの下部に「【キーワード】キーワード名」という見出し形式で注釈を追加してください',
-            '- キーワード注釈セクションの上下には必ず「---」を追加して区切りをつけてください（例：「---\n【キーワード】キーワード名\n...\n---」のように）',
+            '- キーワード注釈セクションの上下には必ず「---」を追加して区切りをつけてください（例：「---\n【キーワード】キーワード名\n内容\n---」のように）',
             '- 注釈には、意味、詳細な説明、関連する数値や具体例を改行で分けて記載してください',
             '- 注釈の各行の先頭に、内容に適した絵文字（📝、💡、✨、🎯、📊、💬、🌟、📌、🔍、📖、💼、⚡、🌊、🌍など）を追加してください',
             // '- 注釈の各行の間には必ず空行（改行を2つ）を入れて、読みやすくしてください（例：「---\n【キーワード】積乱雲\n⚡ 垂直に発達した雲で、雷や突風、ひょうを伴うことが多い\n📊 高度10km以上にまで達することがあり、非常に激しい天気現象を引き起こす\n💡 形状は cauliflower（カリフラワー）に似た特徴的な形をしている\n---」のように）',
