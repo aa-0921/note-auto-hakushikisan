@@ -26,6 +26,20 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     const argv = process.argv.slice(2);
     const skipPublish = argv.includes('--skip-publish') || argv.includes('--no-publish');
     
+    // 最初のターゲット行を指定するオプション（--row2, --row3, --row4, --row5）
+    // デフォルトは0（1行目）
+    let initialRowIndex = 0;
+    const rowArg = argv.find(arg => arg.startsWith('--row'));
+    if (rowArg) {
+      const rowNumber = parseInt(rowArg.replace('--row', ''));
+      if (!isNaN(rowNumber) && rowNumber >= 1) {
+        initialRowIndex = rowNumber - 1; // 1ベースから0ベースに変換（--row2 → インデックス1）
+        logger.info(`📌 最初のターゲット行: ${rowNumber}行目（インデックス: ${initialRowIndex}）`);
+      } else {
+        logger.warn(`⚠️ 無効な行番号: ${rowArg}。デフォルト（1行目）を使用します。`);
+      }
+    }
+    
     // アフィリエイトリンクの表示ON/OFF（true: 表示, false: 非表示）
     // const enableAffiliateLinks = true; // ここでtrue/falseを切り替え
     const enableAffiliateLinks = false; // ここでtrue/falseを切り替え
@@ -66,6 +80,7 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
         keyword: null, // 常に自動取得
         articleUrl: null, // 常に自動取得
         // yNewsUrlはcore側でデフォルト値が設定されているため、指定不要
+        initialRowIndex: initialRowIndex, // 最初のターゲット行のインデックス（0ベース）
         skipPublish: skipPublish, // 投稿をスキップするかどうか
         affiliateLinks: enableAffiliateLinks ? affiliateLinks : [], // アフィリエイトリンク（無効化時は空配列）
         affiliateConfig: enableAffiliateLinks ? affiliateConfig : {}, // アフィリエイト設定（無効化時は空オブジェクト）
