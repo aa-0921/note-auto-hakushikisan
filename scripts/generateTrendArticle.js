@@ -134,7 +134,7 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
       logger.info('✅ 実行完了');
       logger.info('========================================');
       logger.info(`キーワード: ${result.keyword}`);
-      logger.info(`タイトル: ${result.title}`);
+      logger.info(`note記事のタイトル: ${result.title}`);
       logger.info(`ニュースURL: ${result.newsUrl}`);
       logger.info('');
       
