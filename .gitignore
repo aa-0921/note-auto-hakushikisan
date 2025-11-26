@@ -8,6 +8,14 @@ logs/
 # follower-growth 画像は除外しない
 !images/follower-growth/*.jpg
 !images/follower-growth/*.png
+
+# thumbnails 画像は除外しない
+!thumbnails/**/*.jpg
+!thumbnails/**/*.jpeg
+!thumbnails/**/*.png
+!thumbnails/*.jpg
+!thumbnails/*.jpeg
+!thumbnails/*.png
 *.html
 
 # 画像フォルダの構造は残す（.gitkeeepのみ含める）
