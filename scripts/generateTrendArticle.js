@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // scripts/generateTrendArticle.js
-// Googleトレンド記事自動生成・自動投稿スクリプト
-// Googleトレンドの最初のキーワードを自動取得して記事を生成します
+// トレンド記事自動生成・自動投稿スクリプト
+// トレンドの最初のキーワードを自動取得して記事を生成します
 
 import { runWithCore, GoogleTrendArticleService, Logger } from '@aa-0921/note-auto-core';
 
@@ -13,10 +13,10 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     const logger = new Logger();
     
     logger.info('========================================');
-    logger.info('🔥 Googleトレンド記事自動生成・自動投稿');
+    logger.info('🔥 トレンド記事自動生成・自動投稿');
     logger.info('========================================');
     logger.info('');
-    logger.info('キーワード: 自動取得（Googleトレンドの最初のキーワード）');
+    logger.info('キーワード: 自動取得（トレンドの最初のキーワード）');
     logger.info('');
     
     // coreから設定を取得（config/account.yamlから読み込まれた設定）
@@ -75,7 +75,7 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     });
     
     try {
-      // Googleトレンド記事を生成・投稿
+      // トレンド記事を生成・投稿
       const result = await trendService.generateAndPublishTrendArticle({
         keyword: null, // 常に自動取得
         skipPublish: skipPublish, // 投稿をスキップするかどうか

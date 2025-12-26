@@ -8,7 +8,7 @@ import { runWithCore } from '@aa-0921/note-auto-core';
     // アカウント固有の検索ワード配列（ここで管理）
     const searchWords = [
       'フォロバ',
-      // 'フォロバ100',
+      'フォロバ100',
     ];
 
     await core.runFollowFromUserSearch({

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // scripts/generateYNewsArticle.js
-// Yニュース記事自動生成・自動投稿スクリプト
-// Yニュースランキングの最初の記事を自動取得して記事を生成します
+// ニュース記事自動生成・自動投稿スクリプト
+// ニュースランキングの最初の記事を自動取得して記事を生成します
 
 import { runWithCore, YNewsArticleService, Logger } from '@aa-0921/note-auto-core';
 
@@ -13,10 +13,10 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     const logger = new Logger();
     
     logger.info('========================================');
-    logger.info('🔥 Yニュース記事自動生成・自動投稿');
+    logger.info('🔥 ニュース記事自動生成・自動投稿');
     logger.info('========================================');
     logger.info('');
-    logger.info('キーワード: 自動取得（Yニュースランキングの最初の記事）');
+    logger.info('キーワード: 自動取得（ニュースランキングの最初の記事）');
     logger.info('');
     
     // coreから設定を取得（config/account.yamlから読み込まれた設定）
@@ -75,7 +75,7 @@ import { affiliateConfig, affiliateLinks } from './affiliateConfig.js';
     });
     
     try {
-      // Yニュース記事を生成・投稿
+      // ニュース記事を生成・投稿
       const result = await yNewsService.generateAndPublishYNewsArticle({
         keyword: null, // 常に自動取得
         articleUrl: null, // 常に自動取得

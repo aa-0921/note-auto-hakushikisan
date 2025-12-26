@@ -1,4 +1,4 @@
-name: Yニュース記事自動生成・投稿（2時間おき）
+name: ニュース記事自動生成・投稿（2時間おき）
 
 on:
   schedule:
@@ -43,7 +43,7 @@ jobs:
         run: |
           npx puppeteer browsers install chrome
       
-      - name: Yニュース記事を生成・投稿
+      - name: ニュース記事を生成・投稿
         env:
           NOTE_EMAIL: ${{ secrets.NOTE_EMAIL }}
           NOTE_PASSWORD: ${{ secrets.NOTE_PASSWORD }}
@@ -54,6 +54,6 @@ jobs:
       - name: エラー時の通知（オプション）
         if: failure()
         run: |
-          echo "Yニュース記事の生成・投稿に失敗しました"
+          echo "ニュース記事の生成・投稿に失敗しました"
           # Slack通知などを追加することもできます
 
